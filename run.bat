@@ -2,6 +2,7 @@
 setlocal
 
 cd /d "%~dp0"
+set "VENV_DIR=%~dp0.venv"
 
 set "PYTHON_LAUNCHER="
 where py >nul 2>nul
@@ -16,9 +17,9 @@ if not defined PYTHON_LAUNCHER (
   exit /b 1
 )
 
-if not exist ".venv\Scripts\python.exe" (
+if not exist "%VENV_DIR%\Scripts\python.exe" (
   echo Creating virtual environment...
-  %PYTHON_LAUNCHER% -m venv .venv
+  %PYTHON_LAUNCHER% -m venv "%VENV_DIR%"
 )
 
 if not exist "requirements.lock" (
@@ -27,8 +28,8 @@ if not exist "requirements.lock" (
 )
 
 echo Installing dependencies from requirements.lock...
-".venv\Scripts\python.exe" -m pip install -r requirements.lock
+"%VENV_DIR%\Scripts\python.exe" -m pip install -r requirements.lock
 if errorlevel 1 exit /b 1
 
 echo Starting app...
-".venv\Scripts\python.exe" main.py %*
+"%VENV_DIR%\Scripts\python.exe" main.py %*

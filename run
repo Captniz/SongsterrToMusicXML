@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
+VENV_DIR="$SCRIPT_DIR/.venv"
 
 if command -v python3 >/dev/null 2>&1; then
   PYTHON_BIN="python3"
@@ -13,12 +14,12 @@ else
   exit 1
 fi
 
-if [[ ! -x ".venv/bin/python" ]]; then
+if [[ ! -x "$VENV_DIR/bin/python" ]]; then
   echo "Creating virtual environment..."
-  "$PYTHON_BIN" -m venv .venv
+  "$PYTHON_BIN" -m venv "$VENV_DIR"
 fi
 
-VENV_PYTHON=".venv/bin/python"
+VENV_PYTHON="$VENV_DIR/bin/python"
 
 if [[ -f "requirements.lock" ]]; then
   echo "Installing dependencies from requirements.lock..."
