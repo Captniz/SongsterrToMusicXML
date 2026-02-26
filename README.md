@@ -2,52 +2,35 @@
 
 Convert Songsterr track JSON to MusicXML through a terminal UI (Textual) or directly from stdin.
 
-## Quick Setup and Use
+## Quick Start Guide
 
 A full guide is below with copy/paste commands.
 
 
 1. Download the `.zip` from GitHub [Releases](https://github.com/Captniz/SongsterrToMusicXML/releases)
 2. Unzip and enter the folder
-3. Create and activate the Python virtual environment
+3. (*Optional*) Edit `converter.config` to choose output folder and fallback tuning behavior.
+4. Run the launcher script (it creates/uses `.venv`, installs deps from `requirements.lock`, and starts the app)
 
 ```bash
-    # Linux or macOS:
-    
-    python3 -m venv .venv
-    source .venv/bin/activate
+  # Linux or macOS:
+  ./run
 ```
 
 ```bash
-    # Windows:
-     
-    python -m venv .venv
-    .venv\Scripts\activate
+  # Windows:
+  run.bat
 ```
 
-4. Install locked dependencies
-
-```bash
-    pip install -r requirements.lock
-```
-
-5. (*Optional*) Edit `converter.config` to choose output folder and fallback tuning behavior.
-
-6. Run the app:
-
-```bash
-    python main.py
-```
-
-7. In the app, follow prompts to search for a song, select an instrument, and choose a track (*instrument*).
-8. After selecting the track, wait for final conversion status (**The program hanging for a while is an intended behaviour. Do not close.**).
-9. Open generated `.musicxml` from the configured output folder.
-10. **IF USING MUSESCORE, SEE THE IMPORTANT NOTE [HERE](#importing-to-musescore-messes-up-the-notation) !!!!!!**
+5. In the app, follow prompts to search for a song, select an instrument, and choose a track (*instrument*).
+6. After selecting the track, wait for final conversion status (**The program hanging for a while is an intended behaviour. Do not close.**).
+7. Open generated `.musicxml` from the configured output folder.
+8. **IF USING MUSESCORE, SEE THE IMPORTANT NOTE [HERE](#importing-to-musescore-messes-up-the-notation) !!!!!!**
 
 ## Table of Contents
 
-- [SongsterrToScore](#songsterrtoscore)
-  - [Quick Setup and Use](#quick-setup-and-use)
+- [SongsterrToMusicXML](#songsterrtomusicxml)
+  - [Quick Start Guide](#quick-start-guide)
   - [Table of Contents](#table-of-contents)
   - [What this project does](#what-this-project-does)
   - [Project structure](#project-structure)

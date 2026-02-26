@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+if command -v python3 >/dev/null 2>&1; then
+  PYTHON_BIN="python3"
+elif command -v python >/dev/null 2>&1; then
+  PYTHON_BIN="python"
+else
+  echo "Error: Python was not found in PATH." >&2
+  exit 1
+fi
+
+if [[ ! -x ".venv/bin/python" ]]; then
+  echo "Creating virtual environment..."
+  "$PYTHON_BIN" -m venv .venv
+fi
+
+VENV_PYTHON=".venv/bin/python"
+
+if [[ -f "requirements.lock" ]]; then
+  echo "Installing dependencies from requirements.lock..."
+  "$VENV_PYTHON" -m pip install -r requirements.lock
+else
+  echo "Error: requirements.lock not found in $SCRIPT_DIR" >&2
+  exit 1
+fi
+
+echo "Starting app..."
+exec "$VENV_PYTHON" main.py "$@"
