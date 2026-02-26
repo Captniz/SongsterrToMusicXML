@@ -1,4 +1,4 @@
-# SongsterrToScore
+# SongsterrToMusicXML
 
 Convert Songsterr track JSON to MusicXML through a terminal UI (Textual) or directly from stdin.
 
