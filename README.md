@@ -4,28 +4,45 @@ Convert Songsterr track JSON to MusicXML through a terminal UI (Textual) or dire
 
 ## Quick Setup and Use
 
-A more detailed guide is below, but to get started quickly here are the steps:
-
-Installation steps:
-
-1. Clone the repo
-2. Install Python 3.11+ and required packages (`textual`, `musicscore`)
-3. (Optional) Edit `converter.config` to set your desired output folder and fallback tuning behavior (**fallback save path is Documents if config is missing/invalid**)
-4. Run the app: `python main.py`
-5. Follow the prompts to search for a song, select a track, and convert to MusicXML
-6. Find your converted `.musicxml` file in the configured output folder
-7. Open the MusicXML file in MuseScore or your preferred notation software to view/edit the score
+A full guide is below with copy/paste commands.
 
 
+1. Download the `.zip` from GitHub [Releases](https://github.com/Captniz/SongsterrToMusicXML/releases)
+2. Unzip and enter the folder
+3. Create and activate the Python virtual environment
 
-<h1 style="color: orange; border: none; padding-top: 10px;text-align: center;">IMPORTANT FOR MUSESCORE USERS</h1>
+```bash
+    # Linux or macOS:
+    
+    python3 -m venv .venv
+    source .venv/bin/activate
+```
 
-MuseScore's MusicXML import can be inconsistent across versions (*or just plainly suck*), especially for guitar-specific notation.
+```bash
+    # Windows:
+     
+    python -m venv .venv
+    .venv\Scripts\activate
+```
 
-If your converted file looks different than expected in MuseScore, do the following (MuseScore 4.1+ recommended):
-1. Go to `Layout` → Gear button on the instrument → `Replace Instrument` → Put the actual instrument you intend to use (for example, `Electric Bass` instead of `Slap Bass 2`) → Click `OK`.
-   - *With this method you can also **convert to tabs** instead of standard notation*.
-2. If you are using tabs containing dead notes (ghost notes with `x` notehead), **Save the file and restart musescore**. This forces MuseScore to re-interpret the MusicXML and apply the correct notehead for dead notes.
+4. Install locked dependencies
+
+```bash
+    pip install -r requirements.lock
+```
+
+5. (*Optional*) Edit `converter.config` to choose output folder and fallback tuning behavior.
+
+6. Run the app:
+
+```bash
+    python main.py
+```
+
+7. In the app, follow prompts to search for a song, select an instrument, and choose a track (*instrument*).
+8. After selecting the track, wait for final conversion status (**The program hanging for a while is an intended behaviour. Do not close.**).
+9. Open generated `.musicxml` from the configured output folder.
+10. **IF USING MUSESCORE, SEE THE IMPORTANT NOTE [HERE](#importing-to-musescore-messes-up-the-notation) !!!!!!**
 
 ## Table of Contents
 
@@ -43,10 +60,9 @@ If your converted file looks different than expected in MuseScore, do the follow
   - [Output naming](#output-naming)
   - [Notes on notation support](#notes-on-notation-support)
   - [Troubleshooting](#troubleshooting)
-    - [`Converter.py not found`](#converterpy-not-found)
+    - [`Importing to Musescore messes up the notation`](#importing-to-musescore-messes-up-the-notation)
     - [`Track JSON missing valid 'measures'`](#track-json-missing-valid-measures)
-    - [`~` path created as literal folder](#-path-created-as-literal-folder)
-    - [Conversion succeeds but notation looks different in MuseScore](#conversion-succeeds-but-notation-looks-different-in-musescore)
+    - [`~ path created as literal folder`](#-path-created-as-literal-folder)
 
 ## What this project does
 
@@ -73,10 +89,13 @@ Python packages used:
 - `textual`
 - `musicscore`
 
-Install (inside your venv):
+Install (inside your venv) using the lock file:
 
 ```bash
-pip install textual musicscore
+# from project root
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.lock
 ```
 
 ## Configuration (`converter.config`)
@@ -134,7 +153,7 @@ Flow:
 2. Choose instrument filter
 3. Select song
 4. Select track
-5. App shows `Converting ...` and then final conversion status
+5. App shows the final conversion status
 
 ## Run converter directly (without UI)
 
@@ -175,21 +194,23 @@ Additional converter options supported in JSON payload:
 
 ## Troubleshooting
 
-### `Converter.py not found`
+### `Importing to Musescore messes up the notation`
 
-- Ensure `ui_app.py` and `Converter.py` are in the same folder.
+MuseScore's MusicXML import can be inconsistent across versions (*or just plainly suck*), especially for guitar-specific notation.
+
+If your converted file looks different than expected in MuseScore, do the following (MuseScore 4.1+ recommended):
+1. Go to `Layout` → Gear button on the instrument → `Replace Instrument` → Put the actual instrument you intend to use (for example, `Electric Bass` instead of `Slap Bass 2`) → Click `OK`.
+   - *With this method you can also **convert to tabs** instead of standard notation*.
+2. If you are using tabs containing dead notes (ghost notes with `x` notehead), **Save the file and restart musescore**. This forces MuseScore to re-interpret the MusicXML and apply the correct notehead for dead notes.
 
 ### `Track JSON missing valid 'measures'`
 
-- Input payload is not a valid Songsterr track JSON.
+Input payload is not a valid Songsterr track JSON.
 
-### `~` path created as literal folder
+### `~ path created as literal folder`
 
-- Use a valid JSON string in `converter.config`, for example:
-  - `"~/Documents"`
-- Avoid extra characters around `~`.
+Use a valid JSON string in `converter.config`, for example:
+  
+- `"~/Documents"`
 
-### Conversion succeeds but notation looks different in MuseScore
-
-- MusicXML import behavior can vary by MuseScore version.
-- Dead notes and some guitar techniques are interpreted differently across notation apps.
+Avoid extra characters around `~`.
