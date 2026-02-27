@@ -184,7 +184,8 @@ MuseScore's MusicXML import can be inconsistent across versions (*or just plainl
 If your converted file looks different than expected in MuseScore, do the following (MuseScore 4.1+ recommended):
 1. Go to `Layout` → Gear button on the instrument → `Replace Instrument` → Put the actual instrument you intend to use (for example, `Electric Bass` instead of `Slap Bass 2`) → Click `OK`.
    - *With this method you can also **convert to tabs** instead of standard notation*.
-2. If you are using tabs containing dead notes (ghost notes with `x` notehead), **Save the file and restart musescore**. This forces MuseScore to re-interpret the MusicXML and apply the correct notehead for dead notes.
+2. After changing the instrument click the arrow to open the staff subsection → Gear button on the tablature staff → Change `Staff type` from `Simple` or `Common` to `Full`.
+3. If you are using tabs containing dead notes (ghost notes with `x` notehead), **Save the file and restart musescore**. This forces MuseScore to re-interpret the MusicXML and apply the correct notehead for dead notes.
 
 ### `Track JSON missing valid 'measures'`
 
