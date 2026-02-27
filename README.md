@@ -1,4 +1,4 @@
-# SongsterrToMusicXML
+<h1 align="center">SongsterrToMusicXML</h1>
 
 Convert Songsterr track JSON to MusicXML through a terminal UI (Textual) or directly from stdin.
 
